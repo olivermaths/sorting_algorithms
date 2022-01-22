@@ -1,11 +1,14 @@
-#include <stdio.h>;
+#include <stdio.h>
 
-void swap(int arr[], int largest, int index)
+void swap(int* big, int* small)
 {
-    int temp = arr[index];
-    arr[index] = arr[largest];
-    arr[largest] = temp;
+   int temp = *small;
+   *small = *big;
+   *big = temp;
 }
+
+
+
 
 void max_heapify(int arr[], int heap_size, int index)
 {
@@ -22,7 +25,7 @@ void max_heapify(int arr[], int heap_size, int index)
     }
     if (largest != index)
     {
-        swap(arr, largest, index);
+        swap(&arr[largest], &arr[index]);
         max_heapify(arr, heap_size, largest);
     }
 }
@@ -43,7 +46,7 @@ void heapsort(int arr[], int size){
     short heap_size = size;
     for (short i = length; i >= 0; i--)
     {
-      swap(arr, i, 0);
+      swap(&arr[i], &arr[0]);
       heap_size -=1;
       max_heapify(arr, heap_size,  0);
     }
